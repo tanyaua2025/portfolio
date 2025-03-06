@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Портфоліо</title>
+    <style>
+        /* Стили для основного контента страницы */
+        body {
+            background-color: #111; /* Темный фон страницы */
+            color: white; /* Белый текст */
+            font-family: Arial, sans-serif; /* Шрифт для страницы */
+            text-align: center; /* Выравнивание текста по центру */
+            margin: 0;
+            padding: 0;
+            display: flex; /* Используем flexbox для центрирования */
+            flex-direction: column; /* Элементы будут располагаться вертикально */
+            align-items: center; /* Выравнивание по горизонтали */
+            justify-content: center; /* Выравнивание по вертикали */
+        }
+
+        /* Контейнер, в который оборачивается весь контент */
+        .container {
+            max-width: 1200px; /* Максимальная ширина */
+            width: 100%; /* Ширина 100% */
+            margin: 0 auto; /* Центрируем контейнер */
+            padding: 20px; /* Отступы вокруг */
+        }
+
+        /* Шапка с фоновым изображением */
+        .header {
+            position: relative;
+            display: flex; /* Используем flexbox для выравнивания */
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 300px; /* Высота шапки */
+            background: url('Work1.jpg') no-repeat center center/cover; /* Фоновое изображение */
+            text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.5); /* Тень для текста */
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        /* Навигация (меню) */
+        .nav {
+            display: flex; /* Flexbox для выравнивания */
+            flex-wrap: wrap; /* Автоматический перенос элементов */
+            justify-content: center; /* Выравнивание по центру */
+            gap: 20px; /* Пробелы между ссылками */
+            margin: 40px 0 20px; /* Отступы сверху и снизу */
+        }
+
+        /* Ссылки навигации */
+        .nav a {
+            text-decoration: none; /* Убираем подчеркивание */
+            color: white; /* Белый цвет текста */
+            padding: 10px 20px; /* Отступы внутри кнопок */
+            border: 1px solid white; /* Белая граница */
+            border-radius: 5px; /* Скругление углов */
+            transition: 0.3s; /* Плавный переход */
+        }
+
+        /* Эффект при наведении на ссылки */
+        .nav a:hover {
+            background-color: yellow; /* Желтый фон при наведении */
+            color: black; /* Черный текст */
+        }
+
+        /* Галерея изображений и видео */
+        .gallery {
+            display: flex; /* Flexbox для галереи */
+            flex-wrap: wrap; /* Автоматический перенос элементов */
+            justify-content: center; /* Выравнивание по центру */
+            gap: 15px; /* Пробелы между элементами */
+            padding: 20px; /* Отступы */
+        }
+
+        /* Изображения и видео в галерее */
+        .gallery img, .gallery video {
+            height: 200px; /* Фиксированная высота */
+            width: auto; /* Автоматическая ширина */
+            border-radius: 10px; /* Скругление углов */
+            cursor: pointer; /* Курсор-указатель при наведении */
+            transition: transform 0.3s; /* Плавное увеличение */
+        }
+
+        /* Эффект при наведении на изображения */
+        .gallery img:hover, .gallery video:hover {
+            transform: scale(1.05); /* Увеличиваем изображение */
+        }
+
+        /* Кнопка "Показать больше" */
+        .show-more {
+            background-color: white; /* Белый фон */
+            color: black; /* Черный текст */
+            padding: 10px 20px; /* Отступы */
+            border-radius: 20px; /* Скругление углов */
+            cursor: pointer; /* Курсор-указатель */
+            display: inline-block; /* Блок в строке */
+            margin: 10px 0; /* Отступы сверху и снизу */
+            transition: 0.3s; /* Плавный переход */
+        }
+
+        /* Скрытые элементы */
+        .hidden {
+            display: none; /* Скрытые элементы */
+        }
+
+        /* Стиль для полноэкранного режима */
+        .fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8); /* Полупрозрачный черный фон */
+            display: flex; /* Flexbox для центрирования */
+            align-items: center; /* Выравнивание по вертикали */
+            justify-content: center; /* Выравнивание по горизонтали */
+            z-index: 1000; /* Высокий приоритет слоя */
+        }
+
+        /* Изображения и видео в полноэкранном режиме */
+        .fullscreen img, .fullscreen video {
+            max-width: 80%; /* Максимальная ширина 80% от экрана */
+            max-height: 80%; /* Максимальная высота 80% от экрана */
+            border-radius: 10px; /* Скругление углов */
+        }
+
+        /* Кнопки перехода между медиа */
+        .fullscreen button {
+            position: absolute;
+            top: 50%;
+            background-color: transparent;
+            color: white;
+            border: none;
+            font-size: 30px;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        /* Стиль для кнопки "предыдущее" */
+        .fullscreen .prev {
+            left: 10px;
+        }
+
+        /* Стиль для кнопки "следующее" */
+        .fullscreen .next {
+            right: 10px;
+        }
+
+        /* Разделы о проекте и контактная информация */
+        .about, .contact {
+            background-color: #222; /* Темный фон для разделов */
+            color: white; /* Белый текст */
+            padding: 40px 20px; /* Отступы */
+            margin-top: 40px; /* Отступ сверху */
+            border-radius: 10px; /* Скругление углов */
+            max-width: 1200px; /* Максимальная ширина */
+            width: 100%; /* Ширина 100% */
+            margin-left: auto; /* Выравнивание по центру */
+            margin-right: auto; /* Выравнивание по центру */
+        }
+        /* Ограничение для текста в разделе "Обо мне" и "Контакты" */
+        .about p, .contact p, .gallery p {
+            max-width: 1000px; /* Ограничиваем ширину текста */
+            margin: 0 auto; /* Центрируем текст */
+            text-align: center; /* Выравнивание текста по левому краю */
+            padding: 0 0px; /* Добавляем отступы слева и справа */
+        }
+        /* Ссылки в разделе контактов */
+        .contact a {
+            color: yellow; /* Желтый цвет */
+            text-decoration: none; /* Убираем подчеркивание */
+            font-weight: bold; /* Жирный текст */
+        }
+
+        /* Эффект при наведении на ссылки в разделе контактов */
+        .contact a:hover {
+            color: white; /* Белый текст при наведении */
+        }
+
+        /* Мобильная версия */
+        @media (max-width: 768px) {
+            /* Уменьшаем высоту шапки для мобильных */
+            .header {
+                height: 200px;
+                background-position: center;
+            }
+
+            /* Навигация на мобильных — вертикальная */
+            .nav {
+                flex-direction: column; /* Вертикальное выравнивание */
+                align-items: center; /* Выравнивание по центру */
+                gap: 15px; /* Пробелы между элементами */
+                margin: 20px 0; /* Отступы сверху и снизу */
+            }
+
+            /* Кнопки в навигации занимают всю ширину */
+            .nav a {
+                width: 100%;
+                padding: 15px 0; /* Увеличенные отступы */
+                text-align: center; /* Центрируем текст */
+            }
+
+            /* Уменьшаем размер изображений и видео в галерее */
+            .gallery img, .gallery video {
+                height: 150px; /* Уменьшаем высоту */
+            }
+
+            /* Увеличиваем кнопку "Показать больше" */
+            .show-more {
+                padding: 15px 30px; /* Увеличиваем отступы */
+                border-radius: 25px; /* Скругляем углы */
+            }
+
+            /* Уменьшаем отступы в разделах "О себе" и "Контакты" */
+            .about, .contact {
+                padding: 30px 15px; /* Уменьшаем отступы */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Контейнер, который оборачивает весь контент -->
+    <div class="container">
+        <!-- Шапка сайта с фоновым изображением и приветственным текстом -->
+        <div class="header">
+            <h1>Привіт! Я 3D & 2D художник</h1>
+            <p>Створюю анімацію, візуалізацію і персонажів</p>
+        </div>
+
+        <!-- Навигация (меню) -->
+        <div class="nav">
+            <a href="#visual">Візуалізація</a>
+            <a href="#personaj">Персонажі</a>
+            <a href="#mebli">Меблі</a>
+            <a href="#anim">2D анімація</a>
+            <a href="#vector">Векторна графіка</a>
+            <a href="#pattern">Паттерн</a>
+            <a href="#verstka">Верстка</a>
+            <a href="#rizne">Різне</a>
+            <a href="#unreal">Unreal Engine</a>
+        </div>
+
+        <!-- Галерея с изображениями и видео -->
+        <div id="gallery-container"></div>
+
+        <script>
+            /* Описание секций с количеством медиа */
+            const sections = {
+                "visual": 29,
+                "personaj": 9,
+                "mebli": 3,
+                "anim": 8,
+                "vector": 15,
+                "pattern": 5,
+                "verstka": 28,
+                "rizne": 15,
+                "unreal": 1
+            };
+
+            let currentMediaIndex = -1;
+            let currentSectionId = '';
+
+            /* Функция для создания галереи */
+            function createGallery(sectionId, count, isVideo = false) {
+                let section = document.createElement('div');
+                section.id = sectionId;
+                section.innerHTML = `<h2>${document.querySelector(`[href='#${sectionId}']`).textContent}</h2>
+                    <p>${getDescription(sectionId)}</p>
+                    <div class="gallery"></div>
+                    <span class="show-more" onclick="toggleSection('${sectionId}')">ще</span>`;
+                document.getElementById('gallery-container').appendChild(section);
+                let gallery = section.querySelector('.gallery');
+
+                /* Создание медиа элементов (изображений или видео) */
+                for (let i = 1; i <= count; i++) {
+                    let media;
+
+                    if (sectionId === 'personaj') {
+                        if (i <= 6) {  
+                            media = document.createElement('video');
+                            media.src = `${sectionId}/${i}.mp4`;
+                            media.setAttribute('controls', '');
+                        } else {  
+                            media = document.createElement('img');
+                            media.src = `${sectionId}/${i}.jpg`;
+                        }
+                    } else {
+                        if (isVideo) {
+                            media = document.createElement('video');
+                            media.src = `${sectionId}/${i}.mp4`;
+                            media.setAttribute('controls', '');
+                        } else {
+                            media = document.createElement('img');
+                            media.src = `${sectionId}/${i}.jpg`;
+                        }
+                    }
+
+                    if (i > 3) media.classList.add('hidden');
+                    media.onclick = function() {
+                        openFullscreen(this, i - 1, sectionId);
+                    };
+
+                    gallery.appendChild(media);
+                }
+            }
+
+            /* Функция для открытия медиа в полноэкранном режиме */
+            function openFullscreen(mediaElement, index, sectionId) {
+                currentSectionId = sectionId;
+                currentMediaIndex = index;
+                let fullscreen = document.createElement('div');
+                fullscreen.classList.add('fullscreen');
+                let clone = mediaElement.cloneNode(true);
+                fullscreen.appendChild(clone);
+
+                let prevButton = document.createElement('button');
+                prevButton.textContent = '←';
+                prevButton.classList.add('prev');
+                prevButton.onclick = (event) => {
+                    event.stopPropagation();
+                    changeMedia(-1);
+                };
+
+                let nextButton = document.createElement('button');
+                nextButton.textContent = '→';
+                nextButton.classList.add('next');
+                nextButton.onclick = (event) => {
+                    event.stopPropagation();
+                    changeMedia(1);
+                };
+
+                fullscreen.appendChild(prevButton);
+                fullscreen.appendChild(nextButton);
+
+                fullscreen.onclick = () => fullscreen.remove();
+                document.body.appendChild(fullscreen);
+            }
+
+            /* Функция для смены медиа в полноэкранном режиме */
+            function changeMedia(direction) {
+                const galleryItems = document.querySelectorAll(`#${currentSectionId} .gallery img, #${currentSectionId} .gallery video`);
+                currentMediaIndex = (currentMediaIndex + direction + galleryItems.length) % galleryItems.length;
+                const newMedia = galleryItems[currentMediaIndex].cloneNode(true);
+                const fullscreen = document.querySelector('.fullscreen');
+                fullscreen.querySelector('img, video').replaceWith(newMedia);
+            }
+
+            /* Функция для переключения видимости "еще" в галереях */
+            function toggleSection(sectionId) {
+                let gallery = document.querySelector(`#${sectionId} .gallery`);
+                let hiddenItems = gallery.querySelectorAll('.hidden');
+                let button = document.querySelector(`#${sectionId} .show-more`);
+
+                let scrollPosition = window.scrollY;
+
+                if (hiddenItems.length > 0) {
+                    hiddenItems.forEach(item => item.classList.remove('hidden'));
+                    button.textContent = "сховати";
+                } else {
+                    let allItems = gallery.querySelectorAll('img, video');
+                    allItems.forEach((item, index) => {
+                        if (index >= 3) item.classList.add('hidden');
+                    });
+                    button.textContent = "ще";
+                    button.scrollIntoView({ behavior: "smooth", block: "center" });
+                }
+            }
+
+            /* Получение описания для каждой секции */
+            function getDescription(sectionId) {
+                const descriptions = {
+                    "visual": "<p>Цей розділ містить приклади моїх робіт у сфері візуалізації, де я створюю 3D-моделі та сцени, </p><p>використовуючи сучасні методи рендеринга для досягнення максимально реалістичного вигляду.</p>",
+                    "personaj": "<p>Тут ви знайдете мої 3D персонажі, створені для анімацій та інших медіапроектів. </p><p>Кожен персонаж має унікальні деталі, що відображають його історію та особливості.</p>",
+                    "mebli": "<p>Розділ з меблевим дизайном містить мої 3D моделі меблів, </p><p>створені з високою увагою до деталей та дизайну для сучасних інтер'єрів.</p>",
+                    "anim": "<p>У цьому розділі представлені мої роботи з 2D анімації. </p><p>Я створюю анімації для різних проектів.</p>",
+                    "vector": "<p>Тут ви знайдете мої роботи у сфері векторної графіки. </p><p>Це ілюстрації виконані з використанням векторних технологій та перетворення растер у вектор.</p>",
+                    "pattern": "<p>Цей розділ містить паттерни, які я створив для використання в дизайні, </p><p>текстильному виробництві, упаковці та інших сферах.</p>",
+                    "verstka": "<p>У цьому розділі зібрані мої роботи з верстки.</p>",
+                    "rizne": "<p>Тут ви знайдете різноманітні проекти, які не підпадають під інші категорії, </p><p>але все ж відображають мої творчі можливості в різних медіа.</p>",
+                    "unreal": "<p>У цьому розділі я демонструю частіну свого дипломного проекту, створений за допомогою Unreal Engine. </p><p>Включає як відео, так і інтерактивні 3D-сцени, створені для ігор та віртуальних середовищ.</p>"
+                };
+
+                return descriptions[sectionId];
+            }
+
+            /* Создаем галереи для всех секций */
+            for (let [key, value] of Object.entries(sections)) {
+                createGallery(key, value, key === 'personaj' || key === 'anim' || key === 'unreal');
+            }
+        </script>
+
+  <!-- Раздел "Обо мне" -->
+        <div class="about">
+            <h2>Про мене</h2>
+            <p>Привіт, мене звати Тетяна.</p><p>Я закінчила академію "Шаг" і зараз розпочинаю кар’єру в новій для себе сфері, яка мені дуже подобається.</p><p> </p>
+            <p>Незважаючи на те, що поки не маю досвіду роботи, я уважна, відповідальна та швидко навчаюся.</p><p> </p>
+            <p>За освітою я кравець та модельєр-конструктор і понад 10 років працювала в цій галузі. </p><p> </p>
+                <p>Творчість завжди була важливою частиною мого життя, і зараз я розвиваю свої навички у 2D-3D-графіці та візуалізації.</p><p> </p>
+            <p>Люблю створювати цікаві проєкти, експериментувати з формами, кольорами та текстурами.</p><p> </p>
+            <p>Мені подобається навчатися новому, розширювати свої можливості та занурюватися у світ дизайну, щоб втілювати ідеї в реальність.</p><p> </p>
+                <p>Моя мета — створювати унікальні проекти для різних цілей.</p>
+        </div>
+
+        <!-- Раздел контактов -->
+            <div class="contact">
+                <h2>Зв'язатися зі мною</h2>
+                <p>Дякую що переглянули мое портфоліо,</p><p>якщо у вас є питання або ви хочете зв'язатися зі мною:</p>
+                <p>Email: <a href="mailto:t.frolova3d@gmail.com">t.frolova3d@gmail.com</a></p>
+                <a href="https://t.me/@TanyaFrolova30" target="_blank">Telegram</a>
+
+            </div>
+        </div>
+</body>
+</html>
