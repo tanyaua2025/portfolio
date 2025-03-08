@@ -300,6 +300,13 @@
                         padding: 20px; /* Отступы вокруг контента */
                         box-sizing: border-box; /* Учитывает паддинги в общей ширине */
                     }
+            @media (max-width: 768px) {
+                .fullscreen .prev, 
+                .fullscreen .next {
+                    display: none;
+                }
+            }
+
                 </style>
             </head>
 
@@ -420,7 +427,31 @@
                 fullscreen.appendChild(prevButton);
                 fullscreen.appendChild(nextButton);
 
-                fullscreen.onclick = () => fullscreen.remove();
+                fullscreen.addEventListener("click", (event) => {
+                    if (event.target === fullscreen) {
+                        fullscreen.remove();
+                    }
+                });
+                let startX = 0;
+                let endX = 0;
+
+                fullscreen.addEventListener("touchstart", (event) => {
+                    startX = event.touches[0].clientX;
+                });
+
+                fullscreen.addEventListener("touchend", (event) => {
+                    endX = event.changedTouches[0].clientX;
+                    handleSwipe();
+                });
+
+                function handleSwipe() {
+                    if (startX - endX > 50) {
+                        changeMedia(1); // свайп влево – следующая картинка
+                    } else if (endX - startX > 50) {
+                        changeMedia(-1); // свайп вправо – предыдущая картинка
+                    }
+                }
+
                 document.body.appendChild(fullscreen);
             }
 
